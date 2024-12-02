@@ -1,0 +1,223 @@
+package GenesisClientManagement;
+
+import static org.testng.Assert.assertEquals;
+
+import java.time.Duration;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+public class Login {
+
+
+	WebDriver driver;
+	
+	    @BeforeClass
+	    public void setUp() {
+	        // Set up WebDriver 
+	    	driver = new ChromeDriver();
+	    }
+
+	    @Test
+	    public void PageLogin() throws InterruptedException {
+	      
+			// Navigate to  login page
+	        driver.get("https://genesis-admin.sprint.autonomize.dev/rbac");
+	        driver.manage().window().maximize();
+	        System.out.println("Successfully fetched URL");
+	        
+	        // user name    
+	        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(1000));
+	        WebElement userNameField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("username")));
+	        userNameField.sendKeys("swetha@Autonomize.ai"); 
+	        System.out.println("Successfully enterd username");
+	        try {
+	            Thread.sleep(1000); 
+	        } catch (InterruptedException e) {
+	            e.printStackTrace();
+	        }
+
+	      
+//       // Clickhere link
+//        WebElement clickhere = driver.findElement(By.xpath("//p[@id='instruction3']//a[contains(text(),'Click here')]"));
+//	        clickhere.click();
+
+	     // Password
+	        WebElement passwordField = driver.findElement(By.name("password"));
+	        passwordField.click();
+	        passwordField.sendKeys("Idea@123"); // Replace with your password
+	        System.out.println("Successfully enterd password");
+	        Thread.sleep(2000);
+	        
+	      // sign in
+	        WebElement Signinbutton = driver.findElement(By.name("login"));
+	        Signinbutton.click(); 
+	        System.out.println("Successfully loggin to otp screen");
+	        
+	        // Wait for some time to ensure login is processed and otp entered
+	        try {
+	            Thread.sleep(10000); 
+	        } catch (InterruptedException e) {
+	            e.printStackTrace();
+	        }
+
+	        
+//	        // Submit
+//		    driver.findElement(By.id("saveTOTPBtn")).click();
+//	        System.out.println("Successfully loggin to applictaion");
+	        //or
+//            // Signin
+		    driver.findElement(By.id("kc-login")).click();
+	        System.out.println("Successfully loggin to applictaion");
+	        Thread.sleep(8000);
+
+	        
+//            // Try to find the Submit button
+//            WebElement submitButton = null;
+//            try {
+//                submitButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("saveTOTPBtn")));
+//            } catch (Exception e) {
+//                System.out.println("Submit button not found.");
+//            }
+//
+//            // Click on Submit button if it exists, otherwise click on Sign In button
+//            if (submitButton != null && submitButton.isDisplayed() && submitButton.isEnabled()) {
+//                submitButton.click();
+//                System.out.println("Submit button clicked.");
+//            } else {
+//                WebElement signInButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("kc-login")));
+//                signInButton.click();
+//                System.out.println("Sign In button clicked.");
+//            }
+//            
+////            
+//            // Get the text from the element
+//	        WebDriverWait wait2 = new WebDriverWait(driver, Duration.ofSeconds(10));
+//            WebElement textElement = wait2.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h1[@class='header-h1 m-0']")));
+//
+//            String actualText = textElement.getText();
+//
+//            // Define the expected text
+//            String expectedText = "Welcome to Autonomize Genesis Platform"; 
+//
+//            // Verify the text
+//            assertEquals(expectedText, actualText);
+//            System.out.println("Verified text Welcome to Autonomize Genesis Platform");
+	        //Explore menu
+	        driver.findElement(By.xpath("//div[@class='flex gp-10 aic']//*[name()='svg']")).click();
+            Thread.sleep(2000);
+            System.out.println("Successfully clicked on expand menu");
+
+            // Locate the element using XPath
+	      WebElement clientManagementMenu = driver.findElement(By.xpath("//span[normalize-space()='Client Management']"));
+            // Use JavaScript to click on the element
+	      JavascriptExecutor js = (JavascriptExecutor) driver;
+           js.executeScript("arguments[0].click();", clientManagementMenu);
+//            Thread.sleep(2000);
+           System.out.println("Successfully mouse over on client management");
+           Thread.sleep(2000);
+//            
+            //Navigation to Anywhere Client
+            driver.findElement(By.xpath("//span[normalize-space()='Anywhere Client']")).click();
+            Thread.sleep(2000);
+	        
+            //user creation tab
+            driver.findElement(By.xpath("//div[contains(@class,'flex jcsb')]//div[2]")).click();
+            Thread.sleep(2000); 
+            
+            //invite user
+            driver.findElement(By.xpath("//button[contains(@class,'ant-btn css-99djwu ant-btn-default outline')]")).click();
+            Thread.sleep(2000);
+            
+            //Enter FirstName
+            WebElement ele1=driver.findElement(By.xpath("//div[contains(@class,'w-full ant-flex css-99djwu ant-flex-align-center ant-flex-justify-flex-end ant-flex-gap-middle')]//div[1]//input[1]"));
+            ele1.click();
+            ele1.sendKeys("TestAutomation");
+            Thread.sleep(2000);
+            
+            //Last name
+            WebElement ele2=driver.findElement(By.xpath("//div[contains(@class,'ant-modal-root css-99djwu')]//div[contains(@class,'ant-space-item')]//div[2]//input[1]"));
+            ele2.click();
+            ele2.sendKeys("TestAutomation");
+            Thread.sleep(2000);
+            
+            //Email id
+            WebElement ele3=driver.findElement(By.xpath("//body/div/div[contains(@class,'ant-modal-root css-99djwu')]/div[contains(@class,'ant-modal-wrap ant-modal-centered')]/div[contains(@role,'dialog')]/div[contains(@class,'ant-modal-content')]/div[contains(@class,'ant-modal-body')]/div[contains(@class,'ant-space css-99djwu ant-space-vertical ant-space-gap-row-large ant-space-gap-col-large')]/div[contains(@class,'ant-space-item')]/div[contains(@class,'ant-flex css-99djwu ant-flex-align-stretch ant-flex-gap-small ant-flex-vertical')]/input[1]"));
+            ele3.click();
+            ele3.sendKeys("konoce8543@nestvia.com");
+            Thread.sleep(2000);
+            
+            //Select DRop down
+            WebElement dropdownElement= driver.findElement(By.xpath("//span[normalize-space()='Select']"));
+            dropdownElement.click();
+            Thread.sleep(2000);
+            driver.findElement(By.xpath("//div[contains(text(),'Client Admin')]")).click();;
+//            Select dropdown = new Select(dropdownElement);
+//            dropdown.selectByVisibleText("Client Admin");
+            Thread.sleep(2000);
+            
+            //Send Invite
+            driver.findElement(By.xpath("//button[contains(@class,'ant-btn css-99djwu ant-btn-primary')]")).click();
+            Thread.sleep(3000);
+            System.out.println("Successfully cretaed user");
+            
+//            //search text
+//            WebElement ele=driver.findElement(By.xpath("//input[@placeholder='Search User']"));
+//            ele.click();
+//            ele.sendKeys("konoce8543@nestvia.com");
+//            Thread.sleep(2000);
+	        
+            //Edit icon
+            driver.findElement(By.xpath("//tbody/tr[@class='ant-table-row ant-table-row-level-0']/td[@class='ant-table-cell w-10 ant-table-cell-row-hover']/div[@class='ant-space css-99djwu ant-space-horizontal ant-space-align-center ant-space-gap-row-middle ant-space-gap-col-middle']/div[1]/button[1]/span[1]//*[name()='svg']")).click();
+            Thread.sleep(2000);
+            
+            //Update button
+            driver.findElement(By.xpath("//span[normalize-space()='Update']")).click();
+            Thread.sleep(2000);
+            
+            
+            
+//          //search text
+//            ele.click();
+//            ele.sendKeys("konoce8543@nestvia.com");
+//            Thread.sleep(2000);
+//            
+            //Delete icon
+            driver.findElement(By.xpath("//td[contains(@class,'ant-table-cell w-10 ant-table-cell-row-hover')]//div[2]//button[1]//span[1]//*[name()='svg']")).click();
+            Thread.sleep(2000);
+            driver.findElement(By.xpath("//span[normalize-space()='Delete']")).click();
+            Thread.sleep(2000);
+            
+            //click on group tab
+            driver.findElement(By.xpath("//div[contains(@class,'type')]//div[1]")).click();
+            Thread.sleep(2000);
+            
+            
+	    }
+	    
+	   
+        
+        
+        
+//	    @AfterClass
+//	    public void tearDown() {
+//	     
+//			// Close the browser
+//	        if (driver != null) {
+//	            driver.quit();
+//	        }
+//	    }
+	
+}
+

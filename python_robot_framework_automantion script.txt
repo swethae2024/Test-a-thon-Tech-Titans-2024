@@ -1,0 +1,32 @@
+*** Settings ***
+Library    SeleniumLibrary
+Library    BuiltIn
+
+*** Variables ***
+${URL}            https://genesis-admin.demo-v2.autonomize.ai/
+${BROWSER}        Chrome
+${EMAIL}          swetha@autonomize.ai
+${PASSWORD}       Oct@2024
+${EMAIL_DELAY}    10   # Delay after entering the email (in seconds)
+${PASSWORD_DELAY}    15   # Delay after entering the password (in seconds)
+${Login}    15  # Delay after clicking the signin button (in seconds)
+${HIDDEN_ELEMENT}   xpath=//div[@class='flex gp-10 aic']//*[name()='svg']
+${HIDDEN_ELEMENT_Delay}     10   # Delay after clicking on expand button
+${UserManagement}   xpath=//span[normalize-space()='User Management']
+
+
+*** Test Cases ***
+Genesis Login Test
+Interact With Hidden Element Using JavaScript
+    Open Browser    ${URL}    ${BROWSER}
+    Maximize Browser Window
+    Wait Until Element Is Visible   id=username
+    Input Text      id=username    ${EMAIL}
+    Sleep           ${EMAIL_DELAY}    # Delay after entering the email
+    Wait Until Element Is Visible    name=password
+    Input Text      name=password    ${PASSWORD}   # Input the password
+    Sleep           ${PASSWORD_DELAY}   # Delay after entering the password
+    Click Button    id=kc-login    # Click the login button
+    Sleep           ${Login}     # Delay after clicking the signin button (in seconds)
+    Click Button    id=kc-login    # Click the signin button
+    Sleep           ${Login}     # Delay after clicking the signin button (in seconds)
