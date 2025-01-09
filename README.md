@@ -1,4 +1,4 @@
------- Java Selenium Automation Testing in a Maven Project uding TESTNG framework-----
+------ Java Selenium Automation Testing in a Maven Project using TESTNG framework-----
 
 Tool Usage Summary:-
 In this project, Java Selenium was used for automation testing, integrated with Maven to streamline the process and simplify the setup. Maven handles dependencies and includes built-in libraries and browser drivers automatically, eliminating the need for manually managing standalone files, POM files, TestNG, or data-driven configurations. This makes the setup process efficient and error-free, as Maven ensures all necessary components are included from the outset.
